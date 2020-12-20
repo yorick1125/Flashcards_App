@@ -1,0 +1,46 @@
+﻿<Window x:Class="project_interface.WindowStartFlashcards"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:project_interface"
+        mc:Ignorable="d"
+        Title="WindowStartFlashcards" Height="300" Width="600"
+        Background="LightCyan">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value ="#545C52"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value ="#545C52"/>
+            <Setter Property="Background" Value ="#98E2C6"/>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Foreground" Value ="#545C52"/>
+            <Setter Property="Background" Value ="#BFEDEF"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value ="#545C52"/>
+            <Setter Property="Background" Value ="#BFEDEF"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="txtTitle" HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" Margin="10"></TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="20" FontWeight="Bold" Margin="10">Question:</TextBlock>
+                <TextBlock Width="400" x:Name="txtbFrontValue" Margin="10"></TextBlock>
+            </StackPanel>
+            <StackPanel x:Name="stackAnswer" Orientation="Horizontal">
+                <TextBlock FontSize="20" FontWeight="Bold" Margin="10">Answer:</TextBlock>
+                <TextBlock Width="400" x:Name="txtbBackValue" Margin="24,10,0,10"></TextBlock>
+            </StackPanel>
+            <Button x:Name="btnShowAnswer" Width="100" HorizontalAlignment="Right" Margin="10" Click="btnShowAnswer_Click">Show Answer</Button>
+            <StackPanel x:Name="stackAnswerButtons" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                <Button Margin="10" Width="75" x:Name="btnEnd" Click="btnEnd_Click">End</Button>
+                <Button Margin="10" Width="100" x:Name="btnWrong" Click="btnWrong_Click">Wrong Answer</Button>
+                <Button Margin="10" Width="100" x:Name="btnRight" Click="btnRight_Click">Right Answer</Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

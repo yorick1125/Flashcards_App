@@ -1,0 +1,64 @@
+﻿<Window x:Class="project_interface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:project_interface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Background="LightCyan">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value ="#545C52"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value ="#545C52"/>
+            <Setter Property="Background" Value ="#98E2C6"/>
+        </Style>
+        <Style TargetType="ListBox">
+            <Setter Property="Foreground" Value ="#545C52"/>
+            <Setter Property="Background" Value ="#BFEDEF"/>
+        </Style>
+    </Window.Resources>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <TextBlock FontSize="30" FontWeight="Bold" HorizontalAlignment="Center">Decks</TextBlock>
+            <ListBox x:Name="listboxDecks" SelectionChanged="listboxDecks_SelectionChanged">
+                <!--Decks added here automatically-->
+            </ListBox>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1">
+            <TextBlock HorizontalAlignment="Center" FontWeight="Bold">Deck Options</TextBlock>
+            <Button x:Name="btnStartDeck" Margin="10, 25, 10, 0" Click="btnStartDeck_Click">Start</Button>
+            <Button x:Name="btnAddDeck" Margin="10, 25, 10, 0" Click="btnAddDeck_Click">Add Deck</Button>
+            <Button x:Name="btnRenameDeck" Margin="10, 25, 10, 0" Click="btnRenameDeck_Click">Rename</Button>
+            <Button x:Name="btnRemoveDeck" Margin="10, 25, 10, 0" Click="btnRemoveDeck_Click">Remove</Button>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="2">
+            <TextBlock FontSize="30" FontWeight="Bold" HorizontalAlignment="Center">Cards</TextBlock>
+            <ListBox x:Name="listboxCards">
+                <!--Cards added here automatically-->
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3">
+            <TextBlock HorizontalAlignment="Center" FontWeight="Bold">Card Options</TextBlock>
+            <Button x:Name="btnModifyCard" Margin="10, 25, 10, 0" Click="btnModifyCard_Click">Modify</Button>
+            <Button x:Name="btnRemoveCard" Margin="10, 25, 10, 0" Click="btnRemoveCard_Click">Remove</Button>
+            <Button x:Name="btnAddCard" Margin="10, 25, 10, 0" Click="btnAddCard_Click">Add Card</Button>
+        </StackPanel>
+        <Button x:Name="btnSaveExit" Width="100" Height="25" Grid.Column="3" VerticalAlignment="Bottom" Margin="10" Click="btnSaveExit_Click">Save and Exit</Button>
+    </Grid>
+</Window>
