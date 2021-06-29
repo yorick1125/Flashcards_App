@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
-
+using flashcards_app;
 
 namespace project_interface
 {
@@ -30,67 +30,85 @@ namespace project_interface
             InitializeComponent();
             WindowWelcome welcome = new WindowWelcome();
             welcome.ShowDialog();
-            ReadFile();
+            SetupDatabase();
+            //ReadFile();
             DisplayDecks();
         }
 
         // Reads the data from the data file
         // Initializes the read data into the correct decks and cards
-        private void ReadFile()
+        //private void ReadFile()
+        //{
+        //    //Opens the file and reads the first three lines
+        //    if (File.Exists(FILE_PATH))//opens file if it exists
+        //    {
+        //        try
+        //        {
+        //            string[] lines = File.ReadAllLines(FILE_PATH);//The file has the name of a deck on the even index of the line count, followed by all of its cards on a single line in the next one.
+        //            //Example
+        //            //line1-Deck_Name
+        //            //line2-frontvalue/backvalue_frontvalue/backvalue_frontvalue/backvalue etc.
+        //            //line3-Deck_Name
+        //            //line4-frontvalue/backvalue_frontvalue/backvalue_frontvalue/backvalue etc.
+        //            int deckIndexCounter = -1;
+        //            for (int i = 0; i < lines.Length; i++)//for each line
+        //            {
+        //                if (i % 2 == 0)//if the line is an even number
+        //                {
+        //                    deckIndexCounter++;
+        //                    decks.Add(new Deck(lines[i]));
+        //                }
+        //                else//if the line is an odd number
+        //                {
+        //                    string[] fullCards = lines[i].Split('_');//Splits the line by underscore for each seperate card Ex: card1/card1_card2/card2 --> "card1/card1" "card2/card2"
+        //                    for (int j = 0; j < fullCards.Length; j++)//for each card on that line
+        //                    {
+        //                        string front = fullCards[j].Split('/')[0];
+        //                        string back = fullCards[j].Split('/')[1];
+        //                        decks[deckIndexCounter].CreateCard(front, back);
+
+        //                    }
+        //                }
+        //            }
+        //        }
+
+        //        catch (Exception e)
+        //        {
+        //            Console.WriteLine(e.Message);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("File does not exist. Creating blank file.");
+        //        // Creates blank data file and closes the stream
+        //        File.Create(FILE_PATH).Dispose();
+        //    }
+
+        //}
+
+
+        private void SetupDatabase()
         {
-            //Opens the file and reads the first three lines
-            if (File.Exists(FILE_PATH))//opens file if it exists
+            string databaseFileName = "data.db";
+            // if database file doesn't exist yet, create it
+            if (!File.Exists(databaseFileName))
             {
-                try
-                {
-                    string[] lines = File.ReadAllLines(FILE_PATH);//The file has the name of a deck on the even index of the line count, followed by all of its cards on a single line in the next one.
-                    //Example
-                    //line1-Deck_Name
-                    //line2-frontvalue/backvalue_frontvalue/backvalue_frontvalue/backvalue etc.
-                    //line3-Deck_Name
-                    //line4-frontvalue/backvalue_frontvalue/backvalue_frontvalue/backvalue etc.
-                    int deckIndexCounter = -1;
-                    for (int i = 0; i < lines.Length; i++)//for each line
-                    {
-                        if (i % 2 == 0)//if the line is an even number
-                        {
-                            deckIndexCounter++;
-                            decks.Add(new Deck(lines[i]));
-                        }
-                        else//if the line is an odd number
-                        {
-                            string[] fullCards = lines[i].Split('_');//Splits the line by underscore for each seperate card Ex: card1/card1_card2/card2 --> "card1/card1" "card2/card2"
-                            for (int j = 0; j < fullCards.Length; j++)//for each card on that line
-                            {
-                                string front = fullCards[j].Split('/')[0];
-                                string back = fullCards[j].Split('/')[1];
-                                decks[deckIndexCounter].CreateCard(front, back);
-
-                            }
-                        }
-                    }
-                }
-
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                Database.newDatabase(databaseFileName);
             }
             else
             {
-                Console.WriteLine("File does not exist. Creating blank file.");
-                // Creates blank data file and closes the stream
-                File.Create(FILE_PATH).Dispose();
+                Database.openExistingDatabase(databaseFileName);
             }
 
         }
-
         private void DisplayDecks()
         {
             listboxDecks.Items.Clear();
-            for(int i = 0; i < decks.Count; i++)
+            decks = Deck.GetDecks();
+
+            for (int i = 0; i < decks.Count; i++)
             {
-                listboxDecks.Items.Add(decks[i]);
+                listboxDecks.Items.Add(decks[i].Name);
             }
         }
 
@@ -98,6 +116,7 @@ namespace project_interface
         {
             if (listboxDecks.SelectedIndex != -1)
             {
+                decks[listboxDecks.SelectedIndex].GetCards();
                 listboxCards.Items.Clear();
                 for (int i = 0; i < decks[listboxDecks.SelectedIndex].Cards.Count; i++)
                 {
@@ -174,6 +193,7 @@ namespace project_interface
             else
             {
                 Deck deck = decks[listboxDecks.SelectedIndex];
+                deck.RemoveDeck();
                 decks.Remove(deck);
                 DisplayDecks();
                 listboxCards.Items.Clear();
@@ -216,32 +236,7 @@ namespace project_interface
 
         private void btnSaveExit_Click(object sender, RoutedEventArgs e)
         {
-            //Clear the current data.txt before writing to it
-            File.WriteAllText(FILE_PATH, string.Empty);
-
-                StreamWriter streamWriter = null;
-                try
-                {
-                    streamWriter = new StreamWriter(FILE_PATH, true);
-
-                    for (int i = 0; i < decks.Count; i++)// for every deck
-                    {
-                        //print the deck name on one line and card values on the second
-                        streamWriter.WriteLine(decks[i].Name);
-                        streamWriter.WriteLine(decks[i].FormatCards());
-                    }
-
-                }
-                catch (Exception err)
-                {
-                    Console.WriteLine("Error writing to file: " + err.Message);
-                }
-                finally
-                {
-                    if (streamWriter != null)
-                        streamWriter.Close();
-                this.Close();
-                }      
+           this.Close();
         }
 
         private void btnAddDeck_Click(object sender, RoutedEventArgs e)

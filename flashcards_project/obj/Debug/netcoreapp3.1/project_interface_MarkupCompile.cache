@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\micha\source\repos\project_interface\obj\Debug\netcoreapp3.1\
+C:\Users\Yoric\Documents\GitHub\Flashcards\flashcards_project\obj\Debug\netcoreapp3.1\
 project_interface
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-C:\Users\micha\source\repos\project_interface\App.xaml
+C:\Users\Yoric\Documents\GitHub\Flashcards\flashcards_project\App.xaml
 71379821747
 
-11-15005706
-19270705964
+12816823424
+1971041019054
 MainWindow.xaml;windowAddCard.xaml;WindowAddDeck.xaml;WindowModifyCard.xaml;WindowRenameDeck.xaml;WindowStartFlashcards.xaml;WindowWelcome.xaml;
 
 False

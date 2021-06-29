@@ -39,8 +39,8 @@ namespace project_interface
             }
             else
             {
-                MainWindow.decks[deckIndex].Cards[cardIndex].Front = txtbFrontValue.Text;
-                MainWindow.decks[deckIndex].Cards[cardIndex].Back = txtbBackValue.Text;
+                MainWindow.decks[deckIndex].Cards[cardIndex].UpdateFront(txtbFrontValue.Text);
+                MainWindow.decks[deckIndex].Cards[cardIndex].UpdateBack(txtbBackValue.Text);
                 MessageBox.Show("Card modified");
                 this.Close();
             }

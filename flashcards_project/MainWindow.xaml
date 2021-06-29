@@ -59,6 +59,6 @@
             <Button x:Name="btnRemoveCard" Margin="10, 25, 10, 0" Click="btnRemoveCard_Click">Remove</Button>
             <Button x:Name="btnAddCard" Margin="10, 25, 10, 0" Click="btnAddCard_Click">Add Card</Button>
         </StackPanel>
-        <Button x:Name="btnSaveExit" Width="100" Height="25" Grid.Column="3" VerticalAlignment="Bottom" Margin="10" Click="btnSaveExit_Click">Save and Exit</Button>
+        <Button x:Name="btnSaveExit" Width="100" Height="25" Grid.Column="3" VerticalAlignment="Bottom" Margin="10" Click="btnSaveExit_Click">Exit</Button>
     </Grid>
 </Window>

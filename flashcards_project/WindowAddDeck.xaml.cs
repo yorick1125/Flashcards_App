@@ -1,4 +1,5 @@
-﻿using System;
+﻿using flashcards_app;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -45,7 +46,7 @@ namespace project_interface
             }
             if (valid == true)
             {
-                MainWindow.decks.Add(new Deck(txtbDeckName.Text));
+                MainWindow.decks.Add(Deck.AddDeck(txtbDeckName.Text));
                 MessageBox.Show("Deck " + txtbDeckName.Text + " has been created.");
                 this.Close();
             }
